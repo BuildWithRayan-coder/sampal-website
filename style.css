@@ -6,6 +6,7 @@
 :root {
   --color-brand: #00b494;
   --color-brand-light: rgba(0, 180, 148, 0.08);
+  --color-accent-orange: #f97316;
   --color-text-main: #111827;
   --color-text-sub: #4b5563;
   --color-text-muted: #6b7280;
@@ -54,7 +55,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -100,11 +101,11 @@ body {
    SECTION 1: HERO
    ==================================================================== */
 .hero-section {
-  min-height: 85vh;
+  min-height: 78vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 24px 80px 24px;
+  padding: 50px 24px 60px 24px;
   background: var(--color-bg);
 }
 
@@ -151,10 +152,89 @@ body {
 }
 
 /* ====================================================================
+   INFINITE PLATFORMS MARQUEE SECTION
+   ==================================================================== */
+.platforms-section {
+  padding: 10px 0 70px 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.platforms-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin-bottom: 28px;
+}
+
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 52px;
+  width: max-content;
+  animation: infiniteScroll 28s linear infinite;
+  padding: 10px 0;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.platform-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #9ca3af;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition-smooth);
+}
+
+.platform-chip svg {
+  width: 25px;
+  height: 25px;
+  fill: currentColor;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+.platform-chip span {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+
+.platform-chip:hover svg {
+  transform: scale(1.15) translateY(-2px);
+  color: var(--color-brand);
+}
+
+.platform-chip:hover span {
+  color: var(--color-text-main);
+}
+
+@keyframes infiniteScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ====================================================================
    COMMON SECTION HEADERS
    ==================================================================== */
 .section {
-  padding: 100px 0;
+  padding: 95px 0;
   position: relative;
 }
 
@@ -378,6 +458,104 @@ body {
 }
 
 /* ====================================================================
+   SECTION 4: FREQUENTLY ASKED QUESTIONS (FAQ)
+   ==================================================================== */
+.faq-section {
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.faq-list {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.faq-item {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px -3px rgba(0, 0, 0, 0.03);
+  transition: var(--transition-smooth);
+  overflow: hidden;
+}
+
+.faq-item:hover {
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+}
+
+.faq-item.active {
+  border-color: rgba(0, 180, 148, 0.45);
+  box-shadow: 0 10px 28px -6px rgba(0, 180, 148, 0.1);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 26px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  letter-spacing: -0.015em;
+  transition: color 0.2s ease;
+}
+
+.faq-question:hover {
+  color: var(--color-brand);
+}
+
+.faq-icon {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-accent-orange);
+  flex-shrink: 0;
+  line-height: 1;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+  color: #ef4444;
+}
+
+.faq-answer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 26px;
+  transition: max-height 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 240px;
+  opacity: 1;
+  padding: 0 26px 24px 26px;
+}
+
+.faq-answer p {
+  font-size: 15px;
+  color: var(--color-text-sub);
+  line-height: 1.65;
+  font-weight: 450;
+}
+
+/* ====================================================================
    FOOTER
    ==================================================================== */
 .site-footer {
@@ -405,7 +583,10 @@ body {
     padding: 70px 0;
   }
   .hero-section {
-    min-height: 70vh;
+    min-height: 65vh;
+  }
+  .marquee-track {
+    gap: 36px;
   }
 }
 
@@ -431,5 +612,12 @@ body {
     right: 14px;
     padding: 4px 12px;
     font-size: 12px;
+  }
+  .faq-question {
+    padding: 18px 20px;
+    font-size: 15.5px;
+  }
+  .faq-item.active .faq-answer {
+    padding: 0 20px 20px 20px;
   }
 }
