@@ -105,47 +105,47 @@ function initSampalWebSimulator() {
   styleEl.textContent = `
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     
-    /* 3D Cinematic Obsidian Black Pill with Gray Light Touch */
+    /* 3D Rounded Rectangle Button Matching User Design */
     .sampal-pill {
-      position: fixed; z-index: 2147483647; display: flex; align-items: center; gap: 8px;
-      background: radial-gradient(ellipse 120% 70% at 50% -20%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.05) 45%, transparent 75%),
-                  linear-gradient(180deg, #222328 0%, #121316 48%, #08080a 100%);
+      position: fixed; z-index: 2147483647; display: inline-flex; align-items: center; justify-content: center;
+      background: linear-gradient(180deg, #222327 0%, #111215 45%, #000000 100%);
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-top: 1px solid rgba(255, 255, 255, 0.62);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.48);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 
-        inset 0 1px 1px rgba(255, 255, 255, 0.75),
-        inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.9),
-        0 14px 34px -4px rgba(0, 0, 0, 0.95),
-        0 6px 16px rgba(0, 0, 0, 0.8),
-        0 0 1px 1px rgba(255, 255, 255, 0.1);
-      border-radius: 9999px; padding: 7px 16px 7px 13px; cursor: pointer; user-select: none;
-      opacity: 0; transform: translateY(6px) scale(0.95); transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background 0.15s, border-color 0.15s, box-shadow 0.18s; pointer-events: none;
+        inset 0 1px 1px rgba(255, 255, 255, 0.38),
+        0 10px 28px -4px rgba(0, 0, 0, 0.9),
+        0 4px 10px rgba(0, 0, 0, 0.7);
+      border-radius: 12px; padding: 8px 22px; cursor: pointer; user-select: none;
+      opacity: 0; transform: translateY(6px) scale(0.96); transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background 0.15s, border-color 0.15s, box-shadow 0.18s; pointer-events: none;
     }
     .sampal-pill.sampal-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
     .sampal-pill:hover {
-      background: radial-gradient(ellipse 120% 70% at 50% -20%, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.08) 50%, transparent 80%),
-                  linear-gradient(180deg, #2a2c33 0%, #16171b 48%, #090a0d 100%);
-      border-color: rgba(255, 255, 255, 0.38);
-      border-top-color: rgba(255, 255, 255, 0.92);
-      transform: translateY(-2px) scale(1.03);
+      background: linear-gradient(180deg, #2b2c31 0%, #16171b 45%, #050508 100%);
+      border-color: rgba(255, 255, 255, 0.3);
+      border-top-color: rgba(255, 255, 255, 0.7);
+      transform: translateY(-2px) scale(1.02);
       box-shadow: 
-        inset 0 1px 1.5px rgba(255, 255, 255, 0.9),
-        inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.95),
-        0 18px 42px -4px rgba(0, 0, 0, 0.98),
-        0 8px 20px rgba(0, 0, 0, 0.85),
-        0 0 16px rgba(255, 255, 255, 0.18);
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.55),
+        0 14px 34px -4px rgba(0, 0, 0, 0.95),
+        0 6px 14px rgba(0, 0, 0, 0.8);
     }
     .sampal-pill:active {
       transform: translateY(1px) scale(0.98);
       box-shadow: 
-        inset 0 2px 4px rgba(0, 0, 0, 0.75),
-        inset 0 -1px 1px rgba(255, 255, 255, 0.25),
-        0 6px 14px rgba(0, 0, 0, 0.85);
+        inset 0 2px 4px rgba(0, 0, 0, 0.85),
+        0 4px 10px rgba(0, 0, 0, 0.8);
     }
-    .sampal-pill-sparkle { color: #ffffff; font-size: 13.5px; font-weight: 700; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)); }
-    .sampal-pill-text { color: #ffffff; font-size: 13.5px; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95); }
+    .sampal-pill-text {
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+      line-height: 1.2;
+    }
 
     /* Modal Backdrop */
     .sampal-backdrop {
@@ -265,12 +265,11 @@ function initSampalWebSimulator() {
 
   shadow.appendChild(styleEl);
 
-  // Floating Pill
+  // Floating "Ask sampal" Button
   const pill = document.createElement("div");
   pill.className = "sampal-pill";
   pill.innerHTML = `
-    <span class="sampal-pill-sparkle">✦</span>
-    <span class="sampal-pill-text">Ask Sampal</span>
+    <span class="sampal-pill-text">Ask sampal</span>
   `;
   shadow.appendChild(pill);
 
