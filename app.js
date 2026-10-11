@@ -93,9 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // (Runs DeepSeek AI with Safety Check & Fact-Checking)
 // ====================================================================
 function initSampalWebSimulator() {
-  const DEEPSEEK_API_KEY = atob("c2stNjk5OTI2NTEyOGRjNDg1Nzk0ZTliOWZiYjMxZjRhNjU=");
-  const DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions";
-
   // Prevent duplicate mounts
   if (document.getElementById("sampal-ai-sim-root")) return;
 
@@ -374,7 +371,7 @@ function initSampalWebSimulator() {
     if (e.key === "Enter") handleFollowUp();
   });
 
-  function handleFollowUp() {
+  async function handleFollowUp() {
     const q = followupInput.value.trim();
     if (!q) return;
     followupInput.value = "";
@@ -385,10 +382,37 @@ function initSampalWebSimulator() {
     userMsg.textContent = q;
     outputArea.appendChild(userMsg);
 
-    runDeepSeekFlow(currentSelectedText, `User follow-up: "${q}". Explain clearly with reference to the original text:`);
+    const loader = document.createElement("div");
+    loader.className = "sampal-loader";
+    loader.innerHTML = `
+      <span class="sampal-dot-pulse"></span>
+      <span>Sampal AI replying...</span>
+    `;
+    outputArea.appendChild(loader);
+    outputArea.scrollTop = outputArea.scrollHeight;
+
+    try {
+      const chatRes = await SupabaseClient.invokeAiBackend("chat", {
+        messages: [
+          { role: "user", content: `Context: "${currentSelectedText}"\n\nQuestion: "${q}"` }
+        ]
+      });
+      loader.remove();
+      const card = document.createElement("div");
+      card.className = "sampal-response-card";
+      outputArea.appendChild(card);
+      streamTypewriter(card, chatRes.reply || "No reply generated.");
+    } catch (err) {
+      loader.remove();
+      const errBox = document.createElement("div");
+      errBox.className = "sampal-response-card";
+      errBox.style.borderColor = "rgba(239, 68, 68, 0.4)";
+      errBox.textContent = "Error reaching Sampal Backend: " + err.message;
+      outputArea.appendChild(errBox);
+    }
   }
 
-  // Real DeepSeek Safety Pre-Screening & Explanation Flow
+  // Real Supabase Edge Function AI Explanation Flow
   async function runDeepSeekFlow(text, instruction) {
     const loader = document.createElement("div");
     loader.className = "sampal-loader";
@@ -400,28 +424,10 @@ function initSampalWebSimulator() {
     outputArea.scrollTop = outputArea.scrollHeight;
 
     try {
-      // Step 1: Safety Screening
-      const safetyPrompt = `You are a strict safety classifier. Analyze the following user text and determine if it contains extreme violence, sexual abuse, illegal gambling, or dangerous/harmful advice. Answer with ONLY "YES" if it contains unsafe content, or "NO" if it is safe to process.\n\nText: "${text}"`;
+      const res = await SupabaseClient.invokeAiBackend("explain", { text });
+      loader.remove();
 
-      const safetyRes = await fetch(DEEPSEEK_API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${DEEPSEEK_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: "deepseek-chat",
-          messages: [{ role: "user", content: safetyPrompt }],
-          max_tokens: 10,
-          temperature: 0.1
-        })
-      });
-
-      const safetyData = await safetyRes.json();
-      const safetyAnswer = safetyData?.choices?.[0]?.message?.content?.trim().toUpperCase() || "NO";
-
-      if (safetyAnswer.includes("YES")) {
-        loader.remove();
+      if (res.isUnsafe) {
         const alertBox = document.createElement("div");
         alertBox.className = "sampal-safety-box";
         alertBox.innerHTML = `
@@ -432,47 +438,19 @@ function initSampalWebSimulator() {
         return;
       }
 
-      // Step 2: Clear Explanation & Fact-Checking
-      const explainPrompt = `${instruction}\n\n"${text}"\n\nProvide your response in 2 clear sections:\n1. 💡 Plain English Meaning (Simple, direct explanation without jargon)\n2. 🔍 Fact Check & Accuracy (Verify truthfulness, context, and key facts)`;
-
-      const explainRes = await fetch(DEEPSEEK_API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${DEEPSEEK_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: "deepseek-chat",
-          messages: [
-            {
-              role: "system",
-              content: "You are Sampal AI, a super clean, concise web assistant that explains complex topics simply in plain English and checks facts accurately."
-            },
-            { role: "user", content: explainPrompt }
-          ],
-          temperature: 0.3,
-          max_tokens: 650
-        })
-      });
-
-      const explainData = await explainRes.json();
-      loader.remove();
-
-      const reply = explainData?.choices?.[0]?.message?.content || "Unable to generate explanation.";
-
       const card = document.createElement("div");
       card.className = "sampal-response-card";
       outputArea.appendChild(card);
 
       // Smooth typewriter effect
-      streamTypewriter(card, reply);
+      streamTypewriter(card, res.reply || "Unable to generate explanation.");
 
     } catch (err) {
       loader.remove();
       const errBox = document.createElement("div");
       errBox.className = "sampal-response-card";
       errBox.style.borderColor = "rgba(239, 68, 68, 0.4)";
-      errBox.textContent = "Error reaching DeepSeek AI. Please check your internet connection and try again.";
+      errBox.textContent = "Error reaching Sampal Backend. Please check your internet connection and try again.";
       outputArea.appendChild(errBox);
     }
   }
