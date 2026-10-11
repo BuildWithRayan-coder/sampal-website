@@ -196,10 +196,10 @@ function initSampalWebSimulator() {
     /* Output Card */
     .sampal-response-card {
       background: #090c10; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px;
-      padding: 16px; line-height: 1.65; font-size: 14px; color: #f1f5f9; white-space: pre-wrap; word-break: break-word;
+      padding: 16px; line-height: 1.68; font-size: 15.5px; color: #f1f5f9; white-space: pre-wrap; word-break: break-word;
     }
     .sampal-response-card h4 {
-      color: #0df2c9; font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+      color: #0df2c9; font-size: 15px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
     }
 
     /* Pulse Loader */
@@ -304,6 +304,7 @@ function initSampalWebSimulator() {
 
   let currentSelectedText = "";
   let isFullscreen = false;
+  let webChatHistory = [];
 
   // Text selection tracking
   document.addEventListener("mouseup", (e) => {
@@ -378,9 +379,11 @@ function initSampalWebSimulator() {
 
     // Append user question
     const userMsg = document.createElement("div");
-    userMsg.style.cssText = "background: rgba(13,242,201,0.12); border: 1px solid rgba(13,242,201,0.3); border-radius: 12px; padding: 10px 14px; font-size: 13.5px; color: #ffffff; align-self: flex-end; max-width: 85%; margin-bottom: 8px;";
+    userMsg.style.cssText = "background: rgba(13,242,201,0.12); border: 1px solid rgba(13,242,201,0.3); border-radius: 12px; padding: 10px 14px; font-size: 14.5px; color: #ffffff; align-self: flex-end; max-width: 85%; margin-bottom: 8px;";
     userMsg.textContent = q;
     outputArea.appendChild(userMsg);
+
+    webChatHistory.push({ role: "user", content: q });
 
     const loader = document.createElement("div");
     loader.className = "sampal-loader";
@@ -393,11 +396,13 @@ function initSampalWebSimulator() {
 
     try {
       const chatRes = await SupabaseClient.invokeAiBackend("chat", {
-        messages: [
-          { role: "user", content: `Context: "${currentSelectedText}"\n\nQuestion: "${q}"` }
-        ]
+        messages: webChatHistory,
+        selectedText: currentSelectedText
       });
       loader.remove();
+      if (chatRes.reply) {
+        webChatHistory.push({ role: "assistant", content: chatRes.reply });
+      }
       const card = document.createElement("div");
       card.className = "sampal-response-card";
       outputArea.appendChild(card);
@@ -414,6 +419,10 @@ function initSampalWebSimulator() {
 
   // Real Supabase Edge Function AI Explanation Flow
   async function runDeepSeekFlow(text, instruction) {
+    webChatHistory = [
+      { role: "user", content: `Selected text:\n"${text}"\n\nPlease explain what this text is saying simply and cleanly in everyday English.` }
+    ];
+
     const loader = document.createElement("div");
     loader.className = "sampal-loader";
     loader.innerHTML = `
@@ -436,6 +445,10 @@ function initSampalWebSimulator() {
         `;
         outputArea.appendChild(alertBox);
         return;
+      }
+
+      if (res.reply) {
+        webChatHistory.push({ role: "assistant", content: res.reply });
       }
 
       const card = document.createElement("div");
