@@ -3,20 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sampal</title>
+  <title>Sampal - Understand anything simply</title>
   <meta name="description" content="Understand anything simply, check facts, in any language by simply in one click.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="hero-wrapper">
-    <div class="hero-content">
-      <h1 class="brand-title">Sampal</h1>
-      <p class="brand-tagline">Understand anything simply, check facts, in any language by simply in one click</p>
+
+  <!-- Top Navigation Header -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="brand-identity">
+        <img src="assets/logo.png" alt="Sampal Logo" class="brand-logo" />
+        <span class="brand-name">Sampal</span>
+      </div>
     </div>
+  </header>
+
+  <main>
+    <!-- Section 1: Hero -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-content">
+        <h1 class="hero-title">Sampal</h1>
+        <p class="hero-tagline">Understand anything simply, check facts, in any language by simply in one click</p>
+      </div>
+    </section>
+
+    <!-- Section 2: Easy to use -->
+    <section class="section easy-section" id="easy-to-use">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Easy to use</h2>
+          <p class="section-subtitle">Select any text then click Ask sampal to trigger quick action...</p>
+        </div>
+
+        <!-- Video Display Container -->
+        <div class="video-container" id="video-wrapper">
+          <!-- Video element ready for your file or stream -->
+          <div class="video-placeholder">
+            <div class="video-mockup-content">
+              <div class="sample-text-block">
+                <span class="highlighted-text">Quantum computing leverages quantum mechanical phenomena such as superposition and entanglement to compute at unprecedented speeds...</span>
+                <div class="ask-sampal-badge">
+                  <span>Ask sampal</span>
+                </div>
+              </div>
+              <div class="play-action-hint">
+                <div class="play-button-circle">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                </div>
+                <span class="video-hint-label">Video demonstration coming soon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: How it makes your work easy -->
+    <section class="section benefits-section" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">How it makes your work easy</h2>
+        </div>
+
+        <div class="benefits-grid">
+          <!-- Point 1 -->
+          <div class="benefit-card">
+            <div class="benefit-number">01</div>
+            <h3 class="benefit-heading">Simple explanations in a nutshell</h3>
+            <p class="benefit-description">
+              Explains big, complex descriptions or dense texts quickly in simple, everyday language without missing anything important.
+            </p>
+          </div>
+
+          <!-- Point 2 -->
+          <div class="benefit-card">
+            <div class="benefit-number">02</div>
+            <h3 class="benefit-heading">Fast fact-checking & pros and cons</h3>
+            <p class="benefit-description">
+              Quickly verifies facts for accuracy and finds the core pros and cons of any statement or topic in seconds.
+            </p>
+          </div>
+
+          <!-- Point 3 -->
+          <div class="benefit-card">
+            <div class="benefit-number">03</div>
+            <h3 class="benefit-heading">Answers in any language</h3>
+            <p class="benefit-description">
+              Answers fluently in any language you need, letting you understand and explore without language borders.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- Clean Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p class="footer-copy">Sampal — Clarity in one click</p>
+    </div>
+  </footer>
+
   <script src="app.js"></script>
 </body>
 </html>
