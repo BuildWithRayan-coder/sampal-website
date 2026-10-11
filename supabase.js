@@ -120,5 +120,19 @@ const SupabaseClient = {
       headers: this.getHeaders(authToken)
     });
     return res.ok;
+  },
+
+  // Invoke Supabase Edge Function Backend (`sampal-ai`)
+  async invokeAiBackend(action, payload = {}, authToken = null) {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/functions/v1/sampal-ai`, {
+      method: "POST",
+      headers: this.getHeaders(authToken),
+      body: JSON.stringify({ action, ...payload })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.error || `Supabase Edge Function returned HTTP ${res.status}`);
+    }
+    return data;
   }
 };
