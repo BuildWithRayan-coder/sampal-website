@@ -9,17 +9,57 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
-  <!-- Top Navigation Header -->
+  <!-- Top Navigation Header (Inspired by Claritly) -->
   <header class="top-nav">
     <div class="nav-container">
-      <div class="brand-identity">
+      <a href="#hero" class="brand-identity">
         <img src="assets/logo.png" alt="Sampal Logo" class="brand-logo" />
         <span class="brand-name">Sampal</span>
-      </div>
+      </a>
+
+      <!-- Header Options: Home, Video, Pricing, Profile (Claritly reference) -->
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <a href="#hero" class="nav-link">Home</a>
+        <a href="#easy-to-use" class="nav-link" id="nav-video-link">Video</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+
+        <!-- Profile / Auth Area -->
+        <div class="nav-auth-wrapper" id="nav-auth-wrapper">
+          <!-- Logged Out State: Sign in with Google -->
+          <button class="nav-signin-btn" id="nav-signin-btn" title="Sign in with Google">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Sign In</span>
+          </button>
+
+          <!-- Logged In State: Claritly-style Circular Avatar Dropdown (Image 2) -->
+          <div class="nav-profile-container" id="nav-profile-container" style="display: none;">
+            <button class="nav-avatar-btn" id="nav-avatar-btn" title="Account profile" aria-haspopup="true" aria-expanded="false" onclick="toggleProfileDropdown(event)">
+              <span class="nav-avatar-text" id="nav-avatar-text">R</span>
+            </button>
+            <div class="nav-profile-dropdown" id="nav-profile-dropdown">
+              <div class="dropdown-user-header">
+                <span class="dropdown-user-name" id="dropdown-user-name">User</span>
+                <span class="dropdown-user-email" id="dropdown-user-email">user@gmail.com</span>
+                <span class="dropdown-plan-tag" id="dropdown-plan-tag">FREE PLAN</span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-action-btn logout" id="dropdown-logout-btn">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                <span>Log Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
   </header>
 
@@ -89,7 +129,7 @@
             <span>LinkedIn</span>
           </div>
           <div class="platform-chip" title="Slack">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.5-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.5-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.5-2.523 2.526 2.526 0 0 1 2.5-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
             <span>Slack</span>
           </div>
           <div class="platform-chip" title="YouTube">
@@ -131,7 +171,7 @@
             <span>LinkedIn</span>
           </div>
           <div class="platform-chip" title="Slack">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.5-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.5-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.5-2.523 2.526 2.526 0 0 1 2.5-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
             <span>Slack</span>
           </div>
           <div class="platform-chip" title="YouTube">
@@ -158,127 +198,192 @@
       </div>
     </section>
 
-    <!-- Section 3: How it makes your work easy (3 Features) -->
-    <section class="section features-section" id="features">
+    <!-- Section 3: How it makes your work easy -->
+    <section class="section benefits-section" id="features">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">How it makes your work easy</h2>
-          <p class="section-subtitle">Three superpowers that turn dense walls of text into crystal-clear insights.</p>
         </div>
 
-        <div class="features-grid">
-          <!-- Feature Card 1 -->
-          <div class="feature-card">
-            <div class="feature-icon-wrapper">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-              </svg>
-            </div>
-            <h3 class="feature-card-title">Explain Complex Descriptions Simply</h3>
-            <p class="feature-card-desc">
-              Turns big, difficult text into clear, simple language in seconds without leaving out any key details or core meaning.
+        <div class="benefits-grid">
+          <!-- Point 1 -->
+          <div class="benefit-card">
+            <div class="benefit-number">01</div>
+            <h3 class="benefit-heading">Simple explanations in a nutshell</h3>
+            <p class="benefit-description">
+              Explains big, complex descriptions or dense texts quickly in simple, everyday language without missing anything important.
             </p>
           </div>
 
-          <!-- Feature Card 2 -->
-          <div class="feature-card">
-            <div class="feature-icon-wrapper">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 11 12 14 22 4"></polyline>
-                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-              </svg>
-            </div>
-            <h3 class="feature-card-title">Fast Fact-Check & Pros/Cons</h3>
-            <p class="feature-card-desc">
-              Instantly verifies facts in selected statements and surfaces pros and cons so you can make confident, informed choices fast.
+          <!-- Point 2 -->
+          <div class="benefit-card">
+            <div class="benefit-number">02</div>
+            <h3 class="benefit-heading">Fast fact-checking & pros and cons</h3>
+            <p class="benefit-description">
+              Quickly verifies facts for accuracy and finds the core pros and cons of any statement or topic in seconds.
             </p>
           </div>
 
-          <!-- Feature Card 3 -->
-          <div class="feature-card">
-            <div class="feature-icon-wrapper">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="2" y1="12" x2="22" y2="12"></line>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-              </svg>
-            </div>
-            <h3 class="feature-card-title">Any Language Without Borders</h3>
-            <p class="feature-card-desc">
-              Answers and explains in any language you choose, letting you effortlessly read and understand international content.
+          <!-- Point 3 -->
+          <div class="benefit-card">
+            <div class="benefit-number">03</div>
+            <h3 class="benefit-heading">Answers in any language</h3>
+            <p class="benefit-description">
+              Answers fluently in any language you need, letting you understand and explore without language borders.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Section 4: Frequently Asked Questions (Accordion) -->
+    <!-- Section: Pricing Plans ($0 Free & $9 Pro) -->
+    <section class="section pricing-section" id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Simple, transparent pricing</h2>
+          <p class="section-subtitle">Start free, upgrade whenever you need unlimited everyday clarity.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Free Plan Card -->
+          <div class="pricing-card">
+            <div class="pricing-plan-header">
+              <h3 class="plan-name">Free</h3>
+              <p class="plan-desc">Perfect for trying Sampal and everyday casual reading.</p>
+            </div>
+            <div class="plan-price-wrap">
+              <span class="plan-currency">$</span>
+              <span class="plan-amount">0</span>
+              <span class="plan-period">/ month</span>
+            </div>
+            <ul class="plan-features">
+              <li>
+                <svg viewBox="0 0 24 24" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>50 explanations per month</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Fast DeepSeek AI explanations</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Works on all websites & documents</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Any language translation & fact-checking</span>
+              </li>
+            </ul>
+            <a href="#hero" class="plan-btn btn-secondary">Get Started Free</a>
+          </div>
+
+          <!-- Pro Plan Card ($9 / mo) -->
+          <div class="pricing-card featured">
+            <div class="popular-tag">MOST POPULAR</div>
+            <div class="pricing-plan-header">
+              <h3 class="plan-name">Pro</h3>
+              <p class="plan-desc">For professionals, researchers, and power readers.</p>
+            </div>
+            <div class="plan-price-wrap">
+              <span class="plan-currency">$</span>
+              <span class="plan-amount">9</span>
+              <span class="plan-period">/ month</span>
+            </div>
+            <ul class="plan-features">
+              <li>
+                <svg viewBox="0 0 24 24" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <strong>Unlimited explanations & insights</strong>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Priority DeepSeek speed & reasoning</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Image & screenshot analysis support</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Continuous follow-up chat thread</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Cancel anytime with 1 click</span>
+              </li>
+            </ul>
+            <button class="plan-btn btn-primary" id="buy-pro-btn">Get Pro - $9/mo</button>
+            <div class="payment-guarantee">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span>Secured by Freemius. Auto-renews monthly, stop easily anytime.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Frequently Asked Questions (FAQ) -->
     <section class="section faq-section" id="faq">
-      <div class="container faq-container">
+      <div class="container">
         <div class="section-header">
           <h2 class="section-title">Frequently Asked Questions</h2>
-          <p class="section-subtitle">Answers to common questions about using Sampal, pricing, and security.</p>
+          <p class="section-subtitle">Everything you need to know about Sampal.</p>
         </div>
 
         <div class="faq-list">
           <!-- FAQ Item 1 -->
-          <details class="faq-item">
-            <summary class="faq-question">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
               <span>Is Sampal free to use?</span>
-              <span class="faq-chevron" aria-hidden="true">+</span>
-            </summary>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
             <div class="faq-answer">
-              <p>Yes! You can try Sampal freely with daily usage limits. For power users needing unlimited explanations and faster response speeds, premium plans are available.</p>
+              <p>Yes, you can try and use Sampal freely with generous daily limits. If you need higher usage and unlimited AI clarity, affordable premium plans are available.</p>
             </div>
-          </details>
+          </div>
 
           <!-- FAQ Item 2 -->
-          <details class="faq-item">
-            <summary class="faq-question">
-              <span>Does Sampal store my data or use it for AI training?</span>
-              <span class="faq-chevron" aria-hidden="true">+</span>
-            </summary>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Does Sampal store my data or use it for training?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
             <div class="faq-answer">
-              <p>No. We respect your complete privacy. None of your highlighted text, questions, or responses are saved permanently or used to train AI models.</p>
+              <p>No. We respect your privacy completely. Sampal never stores your selected text, browsing history, or private data, and none of your inputs are ever used to train public AI models.</p>
             </div>
-          </details>
+          </div>
 
           <!-- FAQ Item 3 -->
-          <details class="faq-item">
-            <summary class="faq-question">
-              <span>Does the extension slow down my browser?</span>
-              <span class="faq-chevron" aria-hidden="true">+</span>
-            </summary>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Does it slow down my browser?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
             <div class="faq-answer">
-              <p>No, not at all. Sampal is an ultra-lightweight extension (less than 1 MB) built with pure vanilla code that only runs when you actively highlight text.</p>
+              <p>Not at all. Sampal is ultralightweight (less than 1 MB). It operates with zero background CPU usage when idle and only runs when you actively select text or click Ask sampal.</p>
             </div>
-          </details>
+          </div>
 
           <!-- FAQ Item 4 -->
-          <details class="faq-item">
-            <summary class="faq-question">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
               <span>Where is my payment data stored?</span>
-              <span class="faq-chevron" aria-hidden="true">+</span>
-            </summary>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
             <div class="faq-answer">
-              <p>All transactions are handled securely through Freemius, our certified payment processor. We never store or have access to your credit card information.</p>
+              <p>We use Freemius, a trusted, industry-standard, and PCI-compliant secure payment platform. Your payment information is never stored or handled on our servers.</p>
             </div>
-          </details>
+          </div>
 
           <!-- FAQ Item 5 -->
-          <details class="faq-item">
-            <summary class="faq-question">
-              <span>What types of topics or sentences can I select for AI answers?</span>
-              <span class="faq-chevron" aria-hidden="true">+</span>
-            </summary>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>What type of topics or sentences can I select for AI answers?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
             <div class="faq-answer">
-              <p>Any topic! From academic research papers and complex coding documentation to news articles, legal terms, and foreign recipes—Sampal handles all kinds of text.</p>
+              <p>Any topic! From heavy technical articles, financial news, and academic papers to legal terms, casual forums, and foreign languages — Sampal can explain, summarize, or fact-check anything in one click.</p>
             </div>
-          </details>
+          </div>
         </div>
       </div>
     </section>
@@ -350,5 +455,6 @@
     </div>
   </footer>
 
+  <script src="app.js?v=2"></script>
 </body>
 </html>
